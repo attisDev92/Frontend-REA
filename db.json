@@ -1,0 +1,30 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "user": "attis@mail.com",
+      "password": "12345678Aa",
+      "salt": "hola",
+      "authenticate": true,
+      "juridico": false,
+      "natural": true,
+      "espacio": false,
+      "gestor": false,
+      "valid": false,
+      "created_at": null
+    },
+    {
+      "id": 2,
+      "user": "mail@mail.com",
+      "password": "12345678Aa",
+      "salt": "hola",
+      "authenticate": false,
+      "juridico": false,
+      "natural": false,
+      "espacio": false,
+      "gestor": false,
+      "valid": false,
+      "created_at": null
+    }
+  ]
+}
