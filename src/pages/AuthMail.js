@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { authMail } from '../services';
+import { userService } from '../services';
 
 const AuthMail = () => {
     
@@ -15,7 +15,7 @@ const AuthMail = () => {
 
         const updateUser = String(userId);
         
-        authMail(updateUser)
+        userService.authMail(updateUser)
             .then(response => {
                 console.log(response);
                 setAuthOkMessage('alert');

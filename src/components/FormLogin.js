@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { login } from "../services";
+import { userService } from "../services";
 
 const FormLogin = () => {
 
@@ -9,7 +9,6 @@ const FormLogin = () => {
 	const [ errorMessageUser, setMessageEmptyUser ] = useState('alert--none');
 	const [ errorMessagePassword, setErrorMessagePassword ] = useState('alert--none');
 	const [ errorMessageLogin, setErrorMessageLogin ] = useState('alert--none')
-	const [ userData, setUserData ] = useState({});
   
 	const navigateTo = useNavigate();
   
@@ -36,34 +35,28 @@ const FormLogin = () => {
 			password: password
 		}
 
-		login(userObject)
+		userService.login(userObject)
 			.then(response => {
 			setErrorMessageLogin('alert--none');
-			setUserData(response);
-			console.log(userData);
-			debugger
-
-			if(userData.auth === false) {
-				alert('Debe ingresar a su mail y autenticar su registro antes de volver a ingresar');
-				return navigateTo('/validation_mail');
+			const { signed, userData } = response;
+			localStorage.setItem('signedToken', signed);
+			
+			if(!userData.espacio && !userData.gestor) {
+				return navigateTo('/register_profile');
 			}
 
-			if(userData.juridico === false && userData.natural === false) navigateTo('/register_profile');
-
 			return navigateTo('/profile');
-
+			
 			})
 			.catch(err => {
-			console.error(err)
-			setErrorMessageLogin('alert');
+				console.error(err)
+				setErrorMessageLogin('alert');
 			})
-  
 	};
   
 	const handlerClickForget = (e) => {
-	  e.preventDefault();
-	  console.log( "clic en olvido pass");
-	  navigateTo('/resetPassword');
+	  	e.preventDefault();
+	  	navigateTo('/resetPassword');
 	};
   
 	return (

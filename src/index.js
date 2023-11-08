@@ -5,4 +5,8 @@ import './index.css';
 
 
 const root = createRoot(document.getElementById('container'));
-root.render( <Router> <App /> </Router>);
+root.render( 
+    <Router> 
+        <App /> 
+    </Router>
+);

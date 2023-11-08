@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { register } from '../services';
+import { userService } from '../services';
 
 
 const Register = () => {
@@ -33,10 +33,11 @@ const Register = () => {
 			password: password,
 		}
 
-        register(newUser)
+        userService.register(newUser)
             .then(response => {
                 console.log(response);
-                setTimeout( navigateTo('/validation_mail'), 5000);              
+                // return setTimeout( navigateTo('/validation_mail'), 5000);
+                navigateTo('/login');
             })
             .catch(err => {
                 if( err.response.status === 403) setErrorMessage403('alert');

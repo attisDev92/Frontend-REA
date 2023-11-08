@@ -5,7 +5,6 @@ const RegisterOption = () => {
 	const navigateTo = useNavigate();
 
 	const handlerClick = () => {
-		console.log('click en registrarte');
 		navigateTo('/register');
 	};
 
