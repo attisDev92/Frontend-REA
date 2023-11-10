@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { userService } from "../services";
+import { userService, getInformation } from "../services";
+import validationsForm from "../lib/validationsForm";
 
 const FormLogin = () => {
 
@@ -15,43 +16,45 @@ const FormLogin = () => {
 	const handlerOnSubmit = (e) => {
 		e.preventDefault();
 
-		const regexMail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-		const regexPassword = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+		setMessageEmptyUser('alert--none');
+		setErrorMessagePassword('alert--none');
 
-		if(!user || !user.match(regexMail)) {
+		if(!validationsForm.validMail('usuario')) {
 			return setMessageEmptyUser('alert');
-		} else {
-			setMessageEmptyUser('alert--none');
 		}
 
-		if(!password || !password.match(regexPassword)) {
+		if(!validationsForm.validPassword('password')) {
 			return setErrorMessagePassword('alert');
-		} else {
-			setErrorMessagePassword('alert--none');
 		}
 
 		const userObject = {
 			user: user,
 			password: password
 		}
-
+		
 		userService.login(userObject)
 			.then(response => {
-			setErrorMessageLogin('alert--none');
-			const { signed, userData } = response;
-			localStorage.setItem('signedToken', signed);
-			
-			if(!userData.espacio && !userData.gestor) {
-				return navigateTo('/register_profile');
-			}
+				setErrorMessageLogin('alert--none');
+				
+				const { signed,  userData } = response;
+				localStorage.setItem('signedToken', signed);
 
-			return navigateTo('/profile');
+				if(!userData.registerJuridico && !userData.registerNatural) {
+					return navigateTo('./register_profile');
+				}
+
+				if(!userData.registerEspacio && !userData.registerGestor) {
+					return navigateTo('/register_esp_usu');
+				}
+
+				return navigateTo('/profile');
 			
 			})
 			.catch(err => {
 				console.error(err)
 				setErrorMessageLogin('alert');
 			})
+
 	};
   
 	const handlerClickForget = (e) => {

@@ -1,5 +1,6 @@
 import { login, register, authMail, getUser } from './routes/userServices';
 import { juridico, natural, espacio, gestor } from './routes/resgisterServices';
+import { getJuridico, getNatural, getEspacios, getGestor } from './routes/getInformation';
 
 export const userService = { 
     login,
@@ -13,4 +14,11 @@ export const registerService = {
     natural,
     espacio,
     gestor
+}
+
+export const getInformation = {
+    getJuridico,
+    getNatural,
+    getEspacios,
+    getGestor
 }

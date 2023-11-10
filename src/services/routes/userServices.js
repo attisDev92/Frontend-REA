@@ -6,7 +6,12 @@ export const login = async userObject => {
     return response.data;
 };
 
-export const getUser = async headers => {
+export const getUser = async token => {
+
+    const headers = {
+        Authorization: `${token}`,
+    };
+
     const request = axiosInstance.get('/api/login', { headers });
     const response = await request;
     return response.data;
@@ -15,7 +20,7 @@ export const getUser = async headers => {
 export const register = async newUser => {
     const request = axiosInstance.post(`/api/register`, newUser);
     const response = await request;
-    return response.data;
+    return response;
 }
 
 export const authMail = async updateUser => {

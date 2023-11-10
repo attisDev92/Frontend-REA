@@ -1,35 +1,49 @@
 import { useState } from "react";
 import { registerService } from "../services";
+import { useNavigate } from "react-router-dom";
+import validationsForm from "../lib/validationsForm";
 
 export const FormJuridico = ({ userData }) => {
 
     const [ user ] = useState(userData);
+    const [ telfErrorMessage, setTelfErroMessage ] = useState('alert--none');
+
     const token = localStorage.getItem('signedToken');
+    const navigateTo = useNavigate();
 
     const handlerOnSubmit = (e) => {
         e.preventDefault();
 
+        setTelfErroMessage('alert--none')
+
+        if (!validationsForm.validationTelf('telefono')) {
+            setTelfErroMessage('alert');
+        }
+
         const formData = new FormData();
         formData.append('userId', user._id);
-        formData.append('nombreComercial', document.getElementById('nombreComercial').value); 
-        formData.append('nombreRepresentante', document.getElementById('nombreRepresentante').value); 
-        formData.append('apellidoRepresentante', document.getElementById('apellidoRepresentante').value); 
+        formData.append('nombreComercial', validationsForm.upperCaseWords('nombreComercial')); 
+        formData.append('nombreRepresentante',validationsForm.upperCaseWords('nombreRepresentante')); 
+        formData.append('apellidoRepresentante', validationsForm.upperCaseWords('apellidoRepresentante')); 
         formData.append('direccion', document.getElementById('direccion').value);
         formData.append('provincia', document.getElementById('provincia').value); 
-        formData.append('ciudad', document.getElementById('ciudad').value); 
-        formData.append('celular', document.getElementById('celular').value); 
+        formData.append('ciudad', validationsForm.upperCaseWords('ciudad')); 
         formData.append('telefono', document.getElementById('telefono').value); 
         formData.append('imgDir', document.getElementById('imgDir').files[0]);
         formData.append('imgRuc', document.getElementById('imgRuc').files[0]);
 
-        console.log(formData)
-
         registerService.juridico(formData, token)
             .then(response => {
                 console.log(response);
+                if(response.status === 201) {
+                    navigateTo('/register_esp_usu');
+                }
             })
             .catch(err => {
                 console.error(err);
+                if(err) {
+                    alert("Existe un problema con el servidor, salga y vuelva a ingrear. Si el problema persiste comuniquese con nosotros");
+                }
             })
     };
 
@@ -41,9 +55,6 @@ export const FormJuridico = ({ userData }) => {
                 <label htmlFor="nombreComercial">Nombre de la organización</label>
                 <input type="text" name="nombreComercial" id="nombreComercial" placeholder="ejm: Instituto de ..." required/>
 
-                <label htmlFor="telefono">Teléfono del espacio</label> 
-                <input type="tel" name="telefono" id="telefono" placeholder="021111111" required />
-
                 <label htmlFor="direccion">Dirección del Espacio</label>
                 <input type="text" name="direccion" id="direccion" placeholder="Av. Principal y Calle Secundaria" required />
 
@@ -52,31 +63,30 @@ export const FormJuridico = ({ userData }) => {
 
                 <label htmlFor="provincia">Provincia</label>
                 <select name="provincia" id="provincia" required >
-                    <option value="">Selecciona una provincia</option>
-                    <option value="azuay">Azuay</option>
-                    <option value="bolivar">Bolívar</option>
-                    <option value="canar">Cañar</option>
-                    <option value="carchi">Carchi</option>
-                    <option value="chimborazo">Chimborazo</option>
-                    <option value="cotopaxi">Cotopaxi</option>
-                    <option value="el-oro">El Oro</option>
-                    <option value="esmeraldas">Esmeraldas</option>
-                    <option value="galapagos">Galápagos</option>
-                    <option value="guayas">Guayas</option>
-                    <option value="imbabura">Imbabura</option>
-                    <option value="loja">Loja</option>
-                    <option value="los-rios">Los Ríos</option>
-                    <option value="manabi">Manabí</option>
-                    <option value="morona-santiago">Morona Santiago</option>
-                    <option value="napo">Napo</option>
-                    <option value="orellana">Orellana</option>
-                    <option value="pastaza">Pastaza</option>
-                    <option value="pichincha">Pichincha</option>
-                    <option value="santa-elena">Santa Elena</option>
-                    <option value="santo-domingo-de-los-tsam">Santo Domingo de los Tsáchilas</option>
-                    <option value="sucumbios">Sucumbíos</option>
-                    <option value="tungurahua">Tungurahua</option>
-                    <option value="zamora-chinchipe">Zamora Chinchipe</option>
+                    <option value="Azuay">Azuay</option>
+                    <option value="Bolivar">Bolívar</option>
+                    <option value="Cañar">Cañar</option>
+                    <option value="Carchi">Carchi</option>
+                    <option value="Chimborazo">Chimborazo</option>
+                    <option value="Cotopaxi">Cotopaxi</option>
+                    <option value="El Oro">El Oro</option>
+                    <option value="Esmeraldas">Esmeraldas</option>
+                    <option value="Galapagos">Galápagos</option>
+                    <option value="Guayas">Guayas</option>
+                    <option value="Imbabura">Imbabura</option>
+                    <option value="Loja">Loja</option>
+                    <option value="Los Rios">Los Ríos</option>
+                    <option value="Manabí">Manabí</option>
+                    <option value="Morona Santiago">Morona Santiago</option>
+                    <option value="Napo">Napo</option>
+                    <option value="Orellana">Orellana</option>
+                    <option value="Pastaza">Pastaza</option>
+                    <option value="Pichincha">Pichincha</option>
+                    <option value="Santa Elena">Santa Elena</option>
+                    <option value="Santo Domingo de los Tsáchilas">Santo Domingo de los Tsáchilas</option>
+                    <option value="Sucumbios">Sucumbíos</option>
+                    <option value="Tungurahua">Tungurahua</option>
+                    <option value="Zamora Chinchipe">Zamora Chinchipe</option>
                 </select>
 
                 <legend>Datos Representante Legal</legend>
@@ -87,16 +97,19 @@ export const FormJuridico = ({ userData }) => {
                 <label htmlFor="apellidoRepresentante">Apellidos del Representante</label>
                 <input type="text" name="apellidoRepresentante" id="apellidoRepresentante" placeholder="primer y segundo apellido" required />
 
-                <label htmlFor="celular">Celular</label>
-                <input type="tel" name="celular" id="celular" placeholder="0911111111" required />
+                <label htmlFor="telefono">Teléfono fijo o celular</label>
+                <input type="tel" name="telefono" id="telefono" placeholder="ej: 0999999999" required/>
+                <span className={ telfErrorMessage }>
+                    Debe colocar un número de teléfono válido que comience con 593 seguido del codigo de area en el caso de teléfonos fijos o de 593 y el número celular
+                </span>
             
                 <legend>Documentos personería juridica</legend>
 
                 <label htmlFor="imgRuc">Ruc escaneado</label>
-                <input type="file" name="imgRuc" id="imgRuc" required />
+                <input type="file" name="imgRuc" id="imgRuc" accept=".pdf, .jpg" required />
 
                 <label htmlFor="imgDir">Documento que respalde la dirección ingresada</label>
-                <input type="file" name="imgDir" id="imgDir" required />
+                <input type="file" name="imgDir" id="imgDir" accept=".pdf, .jpg" required />
 
                 <input type="submit" className="btn form__btn--enviar" value="Registrar Persona Jurdídica" />
 

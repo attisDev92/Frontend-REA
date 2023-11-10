@@ -1,32 +1,51 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { registerService } from "../services";
+import validationsForm from "../lib/validationsForm";
 
-export const FormEspacio = ({ userData }) => {
+const FormEspacio = ({ userData }) => {
 
     const [ user ] = useState(userData);
+    const [ telfErrorMessage, setTelfErroMessage ] = useState('alert--none');
+    const [ mailErrorMessage, setMailErrorMessage ] = useState('alert-none');
     const token = localStorage.getItem('signedToken');
+    const navigateTo = useNavigate();
 
     const handlerOnSubmit = (e) => {
         e.preventDefault();
 
+        setTelfErroMessage('alert--none');
+        setMailErrorMessage('alert--none');
+
+        if (!validationsForm.validationTelf('celularResponsable')) {
+            setTelfErroMessage('alert');
+        }
+
+        if (!validationsForm.validMail('mailResponsable')) {
+            setMailErrorMessage('alert')
+        }
+
+        const checkboxsEquipoProyeccion = Array.from(document.querySelectorAll('input[name="equipoProyeccion"]:checked')).map(checkbox => checkbox.value);
+        const checkboxsEquipoReproductor = Array.from(document.querySelectorAll('input[name="equipoReproductor"]:checked')).map(checkbox => checkbox.value);
+
         const formData = new FormData();
         formData.append('userId', user._id);
-        formData.append('nombreEspacio', document.getElementById('nombreEspacio').value);
-        formData.append('nombreResponsable', document.getElementById('nombreResponsable').value);
-        formData.append('cargoResponsable ', document.getElementById('cargoResponsable ').value);
+        formData.append('nombreEspacio', validationsForm.upperCaseWords('nombreEspacio'));
+        formData.append('nombreResponsable', validationsForm.upperCaseWords('nombreResponsable'));
+        formData.append('cargoResponsable', validationsForm.upperCaseWords('cargoResponsable'));
         formData.append('celularResponsable', document.getElementById('celularResponsable').value);
-        formData.append('mailResponsable ', document.getElementById('mailResponsable ').value);
-        formData.append('tipoDeEspacio ', document.getElementById('tipoDeEspacio ').value);
+        formData.append('mailResponsable', document.getElementById('mailResponsable').value);
+        formData.append('tipoDeEspacio', document.getElementById('tipoDeEspacio').value);
         formData.append('direccionEspacio', document.getElementById('direccionEspacio').value);
         formData.append('provincia', document.getElementById('provincia').value);
-        formData.append('ciudad ', document.getElementById('ciudad ').value);
+        formData.append('ciudad', validationsForm.upperCaseWords('ciudad'));
         formData.append('descripcion', document.getElementById('descripcion').value);
-        formData.append('aforo ', document.getElementById('aforo ').value);
-        formData.append('equipoProyeccion ', document.getElementById('equipoProyeccion ').value);
-        formData.append('tipoDeReproductor', document.getElementById('tipoDeReproductor').value);
-        formData.append('equipoAudio ', document.getElementById('equipoAudio ').value);
-        formData.append('otrosServicios ', document.getElementById('otrosServicios ').value);
-        formData.append('publicoPrivado ', document.getElementById('publicoPrivado ').value);
+        formData.append('aforo', document.getElementById('aforo').value);
+        formData.append('equipoProyeccion', checkboxsEquipoProyeccion.join(','));
+        formData.append('equipoReproductor', checkboxsEquipoReproductor.join(','));
+        formData.append('equipoAudio ', document.getElementById('equipoAudio').value);
+        formData.append('otrosServicios ', document.getElementById('otrosServicios').value);
+        formData.append('publicoPrivado ', document.getElementById('publicoPrivado').value);
         formData.append('imgLogo', document.getElementById('imgLogo').files[0]);
         formData.append('fotoEspacio1', document.getElementById('fotoEspacio1').files[0]);
         formData.append('fotoEspacio2', document.getElementById('fotoEspacio2').files[0]);
@@ -36,6 +55,7 @@ export const FormEspacio = ({ userData }) => {
         registerService.espacio(formData, token)
             .then(response => {
                 console.log(response);
+                navigateTo('/profile');
             })
             .catch(err => {
                 console.error(err);
@@ -49,51 +69,50 @@ export const FormEspacio = ({ userData }) => {
             <fieldset>
                 <legend>Información general del espacio</legend>
 
-                <label for="nombreEspacio"></label>
-                <input type="text" name="nombreEspacio" id="nombreEspacio" placeholder="Centro de Arte ..."/>
+                <label htmlFor="nombreEspacio"></label>
+                <input type="text" name="nombreEspacio" id="nombreEspacio" placeholder="Centro de Arte ..." required/>
 
-                <label for="direccionEspacio">Dirección del espacio</label>
-                <input type="text" name="direccionEspacio" id="direccionEspacio" placeholder="Av. Principal y Calle Secundaria"/>
+                <label htmlFor="direccionEspacio">Dirección del espacio</label>
+                <input type="text" name="direccionEspacio" id="direccionEspacio" placeholder="Av. Principal y Calle Secundaria" required/>
 
-                <label for="ciudad">Ciudad donde se encuentra el espacio</label>
-                <input type="text" name="ciudad" id="ciudad" placeholder="ejem: Cuenca, Guayquil, Quito"/>
+                <label htmlFor="ciudad">Ciudad donde se encuentra el espacio</label>
+                <input type="text" name="ciudad" id="ciudad" placeholder="ejem: Cuenca, Guayquil, Quito" required/>
 
                 <label>Provincia</label>
                 <select name="provincia" id="provincia">
-                    <option value="">Selecciona una provincia</option>
-                    <option value="azuay">Azuay</option>
-                    <option value="bolivar">Bolívar</option>
-                    <option value="canar">Cañar</option>
-                    <option value="carchi">Carchi</option>
-                    <option value="chimborazo">Chimborazo</option>
-                    <option value="cotopaxi">Cotopaxi</option>
-                    <option value="el-oro">El Oro</option>
-                    <option value="esmeraldas">Esmeraldas</option>
-                    <option value="galapagos">Galápagos</option>
-                    <option value="guayas">Guayas</option>
-                    <option value="imbabura">Imbabura</option>
-                    <option value="loja">Loja</option>
-                    <option value="los-rios">Los Ríos</option>
-                    <option value="manabi">Manabí</option>
-                    <option value="morona-santiago">Morona Santiago</option>
-                    <option value="napo">Napo</option>
-                    <option value="orellana">Orellana</option>
-                    <option value="pastaza">Pastaza</option>
-                    <option value="pichincha" selected>Pichincha</option>
-                    <option value="santa-elena">Santa Elena</option>
-                    <option value="santo-domingo-de-los-tsam">Santo Domingo de los Tsáchilas</option>
-                    <option value="sucumbios">Sucumbíos</option>
-                    <option value="tungurahua">Tungurahua</option>
-                    <option value="zamora-chinchipe">Zamora Chinchipe</option>
+                    <option value="Azuay">Azuay</option>
+                    <option value="Bolivar">Bolívar</option>
+                    <option value="Cañar">Cañar</option>
+                    <option value="Carchi">Carchi</option>
+                    <option value="Chimborazo">Chimborazo</option>
+                    <option value="Cotopaxi">Cotopaxi</option>
+                    <option value="El Oro">El Oro</option>
+                    <option value="Esmeraldas">Esmeraldas</option>
+                    <option value="Galapagos">Galápagos</option>
+                    <option value="Guayas">Guayas</option>
+                    <option value="Imbabura">Imbabura</option>
+                    <option value="Loja">Loja</option>
+                    <option value="Los Rios">Los Ríos</option>
+                    <option value="Manabí">Manabí</option>
+                    <option value="Morona Santiago">Morona Santiago</option>
+                    <option value="Napo">Napo</option>
+                    <option value="Orellana">Orellana</option>
+                    <option value="Pastaza">Pastaza</option>
+                    <option value="Pichincha">Pichincha</option>
+                    <option value="Santa Elena">Santa Elena</option>
+                    <option value="Santo Domingo de los Tsáchilas">Santo Domingo de los Tsáchilas</option>
+                    <option value="Sucumbios">Sucumbíos</option>
+                    <option value="Tungurahua">Tungurahua</option>
+                    <option value="Zamora Chinchipe">Zamora Chinchipe</option>
                 </select>
 
                 <legend>Informacion técnica del espacio</legend>
 
-                <label for="descripcion">Descripción del Espacio</label>
-                <textarea type="text" name="descripcion" id="descripcion">Breve descripción del espacio y las actividades que ejecuta</textarea>
+                <label htmlFor="descripcion">Descripción del Espacio</label>
+                <textarea type="text" name="descripcion" id="descripcion" required>Breve descripción del espacio y las actividades que ejecuta</textarea>
 
-                <label for="tipoDeEspacio">Tipo de espacio</label>
-                <select name="tipoDeEspacio" id="tipoDeEspacio">
+                <label htmlFor="tipoDeEspacio">Tipo de espacio</label>
+                <select name="tipoDeEspacio" id="tipoDeEspacio" required>
                     <option value="Centro cultural">Centro cultural</option>
                     <option value="Galería">Galería</option>
                     <option value="Universidad">Universidad</option>
@@ -102,73 +121,81 @@ export const FormEspacio = ({ userData }) => {
                     <option value="escuela o colegio">Escuela o Colegio</option>
                 </select>
 
-                <label for="aforo">Aforo del espacio</label>
-                <input type="number" name="aforo" id="aforo"/>
+                <label htmlFor="aforo">Aforo del espacio</label>
+                <input type="number" name="aforo" id="aforo" required/>
 
-                <p for="equipo-proyect">Equipo de proyección</p>
-                <input type="checkbox" name="equipoProyeccion[]" value="proyector" id="proyector"/>
-                <label for="proyector">Proyector</label>
-                <input type="checkbox" name="equipoProyeccion[]" value="televisión" id="televisión"/>
-                <label for="televisión">Televisión</label>
-                <input type="checkbox" name="equipoProyeccion[]" value="pantalla" id="pantalla"/>
-                <label for="pantalla">pantalla</label>
-                <input type="checkbox" name="equipoProyeccion[]" value="otro" id="otro"/>
-                <label for="otro">Otro</label>
+                <p>Equipo de proyección</p>
+                    <input type="checkbox" name="equipoProyeccion" value="proyector" id="proyector" required/>
+                    <label htmlFor="proyector">Proyector</label>
+                    <input type="checkbox" name="equipoProyeccion" value="televisión" id="televisión"/>
+                    <label htmlFor="televisión">Televisión</label>
+                    <input type="checkbox" name="equipoProyeccion" value="pantalla" id="pantalla"/>
+                    <label htmlFor="pantalla">pantalla</label>
+                    <input type="checkbox" name="equipoProyeccion" value="otro" id="otro"/>
+                    <label htmlFor="otro">Otro</label>
                 
-                <p for="tipo-proyect">Equipo de reproducción</p>
-                <input type="checkbox" name="equipoReproductor[]" value="DVD" id="DVD"/>
-                <label for="DVD">DVD</label>
-                <input type="checkbox" name="equipoReproductor[]" value="BluRay" id="BluRay"/>
-                <label for="BluRay">BluRay</label>
-                <input type="checkbox" name="equipoReproductor[]" value="Formato digital" id="Formato-digital"/>
-                <label for="Formato-digital">Formato digital</label>
+                <p>Equipo de reproducción</p>
+                    <input type="checkbox" name="equipoReproductor" value="DVD" id="DVD" required/>
+                    <label htmlFor="DVD">DVD</label>
+                    <input type="checkbox" name="equipoReproductor" value="BluRay" id="BluRay"/>
+                    <label htmlFor="BluRay">BluRay</label>
+                    <input type="checkbox" name="equipoReproductor" value="Formato digital" id="Formato-digital"/>
+                    <label htmlFor="Formato-digital">Formato digital</label>
             
-                <label for="equipoAudio">Equipo de Audio</label>
-                <input type="text" name="equipoAudio" id="equipoAudio" placeholder="Equipode audio Dolby5.1"/>
+                <label htmlFor="equipoAudio">Equipo de Audio</label>
+                <input type="text" name="equipoAudio" id="equipoAudio" placeholder="Equipode audio Dolby5.1" required/>
 
-                <label for="otrosServicios">Otros Servicio</label>
-                <input type="text" name="otrosServicios" id="otrosServicios" placeholder="ejm: cafetería, tienda artesanal, etc"/>
+                <label htmlFor="otrosServicios">Otros Servicio</label>
+                <input type="text" name="otrosServicios" id="otrosServicios" placeholder="ejm: cafetería, tienda artesanal, etc" required/>
 
-                <select name="publicoPrivado" id="publicoPrivado">
+                <select name="publicoPrivado" id="publicoPrivado" required>
                     <option value="publico">Público</option>
                     <option value="privado">Privado</option>
                 </select>
 
                 <legend>Datos del responsable de la sala</legend>
 
-                <label for="nombreResponsable">Nombre y Apellido del responsalbe de la sala o espacio</label>
+                <label htmlFor="nombreResponsable">Nombre y Apellido del responsalbe de la sala o espacio</label>
                 <input type="text" name="nombreResponsable" id="nombreResponsable" placeholder="Nombre Apellido"/>
 
-                <label for="cargoResponsable">Cargo del responsable de la sala</label>
+                <label htmlFor="cargoResponsable">Cargo del responsable de la sala</label>
                 <input type="text" name="cargoResponsable" id="cargoResponsable" placeholder="programador, administrador, etc"/>
 
-                <label for="mailResponsable">Correo electrónico</label>
-                <input type="email" name="mailResponsable" id="mailResponsable" placeholder="centrodearte@mail.com"/>
+                <label htmlFor="mailResponsable">Correo electrónico</label>
+                <input type="email" name="mailResponsable" id="mailResponsable" placeholder="centrodearte@mail.com" required/>
+                <span className={ mailErrorMessage }>
+                    Debe colocar un mail valido, este mail será al que se enviaran las obras cinematográficas cuando las soliciten.
+                </span>
 
-                <label for="celularResponsable">Celular</label>
-                <input type="tel" name="celularResponsable" id="celularResponsable" placeholder="centrodearte@mail.com"/>
+                <label htmlFor="celularResponsable">Celular</label>
+                <input type="tel" name="celularResponsable" id="celularResponsable" placeholder="0999999999" required/>
+                <span className={ telfErrorMessage }>
+                    Debe colocar un número de teléfono válido que comience con 593 seguido del codigo de area en el caso de teléfonos fijos o de 593 y el número celular
+                </span>
 
                 <legend>Documentos</legend>
 
-                <label for="imgLogo">Logo del espacio</label>
-                <input type="file" name="imgLogo" id="imgLogo"/>
+                <label htmlFor="imgLogo">Logo del espacio</label>
+                <input type="file" name="imgLogo" id="imgLogo" accept=".jpg" required/>
 
-                <label for="fotoEspacio1">Foto del espacio - vista general</label>
-                <input type="file" name="fotoEspacio1" id="fotoEspacio1"/>
+                <label htmlFor="fotoEspacio1">Foto del espacio - vista general</label>
+                <input type="file" name="fotoEspacio1" id="fotoEspacio1" accept=".jpg" required/>
 
-                <label for="fotoEspacio2">Foto del espacio - butacas</label>
-                <input type="file" name="fotoEspacio2" id="fotoEspacio2"/>
+                <label htmlFor="fotoEspacio2">Foto del espacio - butacas</label>
+                <input type="file" name="fotoEspacio2" id="fotoEspacio2" accept=".jpg" required/>
 
-                <label for="fotoEspacio3">Foto del espacio - pantalla</label>
-                <input type="file" name="fotoEspacio3" id="fotoEspacio3"/>
+                <label htmlFor="fotoEspacio3">Foto del espacio - pantalla</label>
+                <input type="file" name="fotoEspacio3" id="fotoEspacio3" accept=".jpg" required/>
 
-                <label for="imgAutorizacion">Documento de nombrameinto o autorización</label>
-                <input type="file" name="imgAutorizacion" id="imgAutorizacion"/>
+                <label htmlFor="imgAutorizacion">Documento de nombrameinto o autorización</label>
+                <input type="file" name="imgAutorizacion" id="imgAutorizacion" accept=".pdf, .jpg" required/>
 
-                <input type="submit" class="btn form__btn--enviar" value="Enviar registro" id="submit-form-gest"/>
+                <input onClick={handlerOnSubmit} type="submit" className="btn form__btn--enviar" value="Enviar registro" id="submit-form-gest"/>
 
             </fieldset>
 
         </form>
     )
 }
+
+export default FormEspacio;

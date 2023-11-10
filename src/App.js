@@ -1,18 +1,20 @@
 import { Routes, Route, useNavigate} from 'react-router-dom';
+import { useEffect, useState } from 'react';
+//servicios
+import { userService } from './services';
+//componentes para rutas
 import Header from './layouts/Header';
 import Login from './pages/Login';
 import ResetPassword from './pages/ResetPassword';
 import Register from './pages/Register';
-import Validation from './pages/Validation';
 import NotFound from './components/NotFound';
 import Profile from './pages/Profile';
 import RegisterProfile from './pages/RegisterProfile';
 import RegisterEspGes from './pages/RegisterEspGet';
-import AuthMail from './pages/AuthMail';
 import AdminLogin from './pages/AdminLogin';
+import UserCreate from './pages/UserCreate'
+//otros componentes
 import BtnLogOut from './components/BtnLogOut';
-import { useEffect, useState } from 'react';
-import { userService } from './services';
 
 const App = () => {
 
@@ -28,11 +30,7 @@ const App = () => {
             return setIsLogged(false);
         }
 
-        const headers = {
-            Authorization: `${token}`,
-        };
-
-        userService.getUser(headers)
+        userService.getUser(token)
             .then(response => {
                 setUser(response);
                 setIsLogged(true);
@@ -66,8 +64,9 @@ const App = () => {
                 <Route path="/login" element={<Login />} />
                 <Route path="/resetPassword" element={<ResetPassword />} />
                 <Route path="/register" element={<Register />} />
-                <Route path="/validation_mail" element={<Validation />} />
-                <Route path="/auth_mail" element={<AuthMail />} />
+                {/* <Route path="/validation_mail" element={<Validation />} /> */}
+                {/* <Route path="/auth_mail" element={<AuthMail />} /> */}
+                <Route path="/userCreated" element={ <UserCreate /> } />
                 <Route path="/register_profile" element={ isLogged ? <RegisterProfile userData={user} /> : <Login/>} />
                 <Route path="/register_esp_usu" element={ isLogged ? <RegisterEspGes userData={user} /> : <Login />} />
                 <Route path="/profile" element={ isLogged ? <Profile userData={user} /> : <Login />} />

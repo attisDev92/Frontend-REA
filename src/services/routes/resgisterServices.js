@@ -9,7 +9,7 @@ export const juridico = async (formData, token) => {
         headers,
     });
     const response = await request;
-    return response.data;
+    return response;
 };
 
 export const natural = async (formData, token) => {
@@ -21,7 +21,7 @@ export const natural = async (formData, token) => {
         headers,
     });
     const response = await request;
-    return response.data;
+    return response;
 };
 
 export const espacio = async (formData, token) => {
@@ -33,7 +33,7 @@ export const espacio = async (formData, token) => {
         headers,
     });
     const response = await request;
-    return response.data;
+    return response;
 };
 
 export const gestor = async (formData, token) => {
@@ -45,5 +45,5 @@ export const gestor = async (formData, token) => {
         headers,
     });
     const response = await request;
-    return response.data;
+    return response;
 };

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { userService } from '../services';
+import validationsForm from '../lib/validationsForm';
 
 
 const Register = () => {
@@ -19,13 +20,15 @@ const Register = () => {
 	const handlerOnSubmit = (e) => {
 		e.preventDefault();
 
-		const regexMail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-		const regexPassword = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
-        const regexCedula = /^(\d{10}|\d{13})$/;
+        setErrorMessageUser('alert--none');
+        setMessageCedula('alert--none');
+        setErrorMessagePassword('alert--none');
+        setErrorMessage400('alert--none');
+        setErrorMessage403('alert--none');
 
-		if(!user || !user.match(regexMail)) setErrorMessageUser('alert');
-        if (!userCedula.match(regexCedula)) setMessageCedula('alert');
-		if(!password || !password.match(regexPassword)) setErrorMessagePassword('alert');
+		if(!validationsForm.validMail('mail-usuario')) setErrorMessageUser('alert');
+        if (!validationsForm.validCedula('identidad')) setMessageCedula('alert');
+		if(!validationsForm.validPassword('pass')) setErrorMessagePassword('alert');
 
 		const newUser = {
 			user: user,
@@ -37,18 +40,12 @@ const Register = () => {
             .then(response => {
                 console.log(response);
                 // return setTimeout( navigateTo('/validation_mail'), 5000);
-                navigateTo('/login');
+                navigateTo('/userCreated');
             })
             .catch(err => {
-                if( err.response.status === 403) setErrorMessage403('alert');
-                if( err.response.status === 400) setErrorMessage400('alert');
+                if( err.status === 403) setErrorMessage403('alert');
+                if( err.status === 400) setErrorMessage400('alert');
             })
-
-        setErrorMessageUser('alert--none');
-        setMessageCedula('alert--none');
-        setErrorMessagePassword('alert--none');
-        setErrorMessage400('alert--none');
-        setErrorMessage403('alert--none');
 	};
 
     return (
