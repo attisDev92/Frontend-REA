@@ -1,5 +1,5 @@
-import FormLogin from '../components/FormLogin';
-import RegisterOption from '../components/RegisterOption';
+import FormLogin from '../components/Componentes Login/FormLogin';
+import RegisterOption from '../components/Componentes Login/RegisterOption';
 
 const Login = () => {
 

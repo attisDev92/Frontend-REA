@@ -49,14 +49,15 @@ nav {
 	display: inline-block;
 	height: 2rem;
 	width: auto;
-	margin-left: 3rem;
+	margin-inline-start: 2rem;
+	margin-block-start: 1rem;
 }
 
 /* main */
 
 .contenedor__formulario {
 	background-color: var(--color-gris-claro);
-	margin: 10rem auto;
+	margin: 7rem auto;
 	padding: 2em;
 	width: 30%;
 	min-width: -webkit-fit-content;
@@ -68,23 +69,6 @@ nav {
 	height: fit-content;
 	-webkit-box-shadow: var(--sombra-box);
 	        box-shadow: var(--sombra-box);
-}
-
-.texto__formulario {
-	font-family: var(--font-principal);
-    margin: 2em 1em 1em;
-	text-align: center;
-}
-
-.formulario__titulo {
-	padding: 0em 2em;
-	margin: 1em auto;
-	height: 2em;
-	font-family: var(--font-principal);
-	color:var(--color-rojo);
-	font-size: 2em;
-	text-align: center;
-	border-bottom: 2px solid var(--color-negro);
 }
 
 .login__formulario {
@@ -111,6 +95,8 @@ nav {
 	color: var(--color-gris-claro);
 }
 
+/* botones */
+
 .btn {
 	width: 12em;
 	height: 2.3em;
@@ -135,6 +121,24 @@ nav {
 	        transform: scale(1.1);
 }
 
+/* texto de notas en formulario */
+.texto__formulario {
+	font-family: var(--font-principal);
+    margin: 1em 1em 1em;
+	text-align: center;
+}
+
+.formulario__titulo {
+	padding: 0em 2em;
+	margin: 1em auto;
+	height: 2em;
+	font-family: var(--font-principal);
+	color:var(--color-rojo);
+	font-size: 2em;
+	text-align: center;
+	border-bottom: 2px solid var(--color-negro);
+}
+
 .notas {
 	margin: auto;
 	font-size: 0.8em;
@@ -149,6 +153,7 @@ nav {
 	margin-block: 5em;
 }
 
+/* alerta en errores del formulario */
 .alert {
 	display: block;
 	font-size: 1em;
@@ -161,7 +166,115 @@ nav {
 	font-size: 0;
 }
 
+/* Boton de logout */
+.btn--logout {
+	width: 7em;
+    position: fixed;
+    top: 1em;
+    height: 2em;
+    right: 1em;
+    margin: 0.3em 0.3em;
+    background-color: var(--color-rojo);
+    font-family: var(--font-secundaria);
+    color: var(--color-gris-claro);
+    text-align: center;
+    box-shadow: var(--sombra-box);
+    transition: all 0.3s ease;
+}
+
+.btn--logout:hover {
+	color: var(--color-gris-oscuro);
+	background-color: var(--color-gris-claro);
+	-webkit-transform: scale(1.1);
+	    -ms-transform: scale(1.1);
+	        transform: scale(1.1);
+}
+
 /* formulario registro */
+.contenedor__registro {
+	background-color: var(--color-gris-claro);
+	margin: 2rem auto;
+	padding: 2em;
+	width: 90%;
+	min-width: -webkit-fit-content;
+	min-width: -moz-fit-content;
+	min-width: fit-content;
+	height: -webkit-fit-content;
+	height: -moz-fit-content;
+	height: fit-content;
+	-webkit-box-shadow: var(--sombra-box);
+	        box-shadow: var(--sombra-box);
+}
+
+/* label */
+.formulario__registro label {
+	text-align: end;
+    height: 2em;
+    padding-block: 0.5em;
+}
+
+/* formregistro */
+.titulo__registro {
+	margin: 1em auto;
+	text-align: center;
+	color: var(--color-rojo);
+	border: none;
+}
+
+.formulario__registro input:not(.btn),
+.formulario__registro textarea,
+.formulario__registro select {
+	height: 2em;
+	padding: 0 2em;
+	color: var(--color-gris-claro);
+	font-family: var(--font-secundaria);
+	font-size: 1em;
+	background-color: var(--color-negro);
+	-webkit-box-shadow: inset -1px -1px 4px 0px black;
+	        box-shadow: inset -1px -1px 4px 0px black;
+}
+
+.formulario__registro input[type="file"] {
+	background-color: var(--color-gris-claro);
+	color: #3A4750;
+	box-shadow: none;
+}
+
+.formulario__registro li input,
+.formulario__registro li label {
+	display: inline;
+}
+
+.formulario__registro input[type="checkbox"] {
+	background-color: aliceblue;
+    margin: 1.5rem;
+    padding: 2px 10px;
+    border-radius: 10px;
+}
+
+.formulario__registro input[type="checkbox"]:checked {
+	background-color: var(--color-rojo);
+}
+
+.formulario__registro textarea {
+	height: 10rem;
+	width: 70%;
+	padding: 2em;
+	margin: 0 auto;
+}
+
+.formulario__registro .row {
+	margin-block: 0.7em;
+}
+
+/* Boton enviar registro */
+.form__btn--enviar {
+	font-size: 1.5rem;
+	width: 100%;
+	margin: 3rem auto 1rem;
+	height: 4rem;
+}
+
 
 .header__registro {
 	position: fixed;
@@ -169,16 +282,6 @@ nav {
 	height: fit-content;
 	background-color: var(--color-negro);
 	z-index: 10;
-}
-
-#main-registro {
-	padding-block: 10em;
-}
-
-.titulo__registro {
-	margin: 1em auto;
-	color: var(--color-gris-claro);
-	border: none;
 }
 
 .contenedor__btn--superior {
@@ -259,8 +362,6 @@ nav {
 	height: fit-content;
 }
 
-/* formularios registro */
-
 .form__espacios--none {
 	display: none;
 }
@@ -270,7 +371,6 @@ nav {
 }
 
 /* btn juridico o narutal */
-
 .contenedor__persona {
 	margin: 2em;
 	width: fit-content;
@@ -329,3 +429,96 @@ nav {
 .accordion-body .input-file {
 	box-shadow: none;
 }
+
+/* profile */
+
+.container__profile {
+	padding: 0 1em 1em;
+}
+
+.profile__header {
+	margin: 2rem;
+	padding: 1rem;
+}
+
+.container__card__profile {
+	padding: 4rem;
+	background-color: var(--color-gris-claro);
+	box-shadow: var(--sombra-box);
+}
+
+.profile__company {
+
+}
+
+.profile__type {
+
+}
+
+.profile__representante {
+
+}
+
+.profile__name {
+
+}
+
+/* espacios y gestores */
+.body__profile {
+	background-color: var(--color-gris-claro);
+	padding: 3em;
+}
+
+.container__card__espacio {
+	background-color: var(--color-negro);
+	color: var(--color-gris-claro);
+	border-radius: 15px 1px;
+	box-shadow: var(--sombra-box);
+	margin: 1rem auto;
+	padding: 3rem;
+}
+
+/* notificaciones en el perfil */
+
+.card__notification {
+	background-color: #BE3144;
+	color: var(--color-gris-claro);
+	height: fit-content;
+	padding: 0.5rem;
+}
+
+.notification__text {
+	font-size: 1.1rem;
+	text-align: center;
+}
+
+.card__notification button {
+	margin: auto;
+	width: 20rem;
+	height: 2rem;
+	background-color: var(--color-gris-claro);
+	color: var(--color-negro);
+	border-radius: 5px;
+	transition: all ease 0.3ms;
+}
+
+.card__notification button:hover {
+	transform: scale(1.1);
+	background-color: var(--color-negro);
+	color: var(--color-gris-claro);
+}
+
+/* Card  Add*/
+.card__add {
+	box-shadow: var(--sombra-box);
+	height: fit-content;
+	width: 40rem;
+	padding: 2rem;
+	margin: 3rem auto;
+}
+
+.card__add p {
+	width: fit-content;
+	margin: 1rem auto;
+}
+

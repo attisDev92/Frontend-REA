@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import FormGestor from "../components/FormGestor";
-import FormEspacio from "../components/FormEspacio";
+import FormGestor from "../components/Formularios de registro/FormGestor";
+import FormEspacio from "../components/Formularios de registro/FormEspacio";
 
 const RegisterEspGes = ({ userData }) => {
 
@@ -10,11 +10,9 @@ const RegisterEspGes = ({ userData }) => {
     const navigateTo = useNavigate();
 
     useEffect(() => {
-
-        if(!userData) {
+        if(!user) {
             return navigateTo('/login');
         }
-
         if(user.registerEspacio || user.registerGestor) {
             return navigateTo('/profile');
         }
@@ -27,14 +25,12 @@ const RegisterEspGes = ({ userData }) => {
         } else if (renderForm === 'gestor') {
             return <FormGestor userData={user} />
         } else {
-            return <h3>Seleccione una opcion </h3>
+            return <h3 className="titulo__registro">Seleccione una opción </h3>
         }
     }
 
     return(
         <div>
-            <h1>Register Espacio o Gestor</h1>
-            <h3>Bienvenido {user.user}</h3>
             <div className="row contenedor__btn--superior">
                 <button onClick={() => setRenderForm('espacio')} className="col-md-6 btn--superior">
                     <h2>Registro Espacio</h2>
@@ -47,8 +43,9 @@ const RegisterEspGes = ({ userData }) => {
                     Este registro es para gestores culturales que trabajen en proyectos de exhibición de obras cinematográficas y quieran acceder a varios beneficios.</p>
                 </button>
             </div>
-
-            {handlerRenderForm()}
+            <div className="contenedor__registro">
+                {handlerRenderForm()}
+            </div>
 
         </div>
         

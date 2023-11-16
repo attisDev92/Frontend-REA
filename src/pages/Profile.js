@@ -1,36 +1,27 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom";
+import HeaderProfile from "../components/Componentes Profile/Cards profile/HeaderProfile";
+import BodyProfile from "../components/Componentes Profile/Cards esp usu/BodyProfile";
 
 
-const Profile = ( {userData} ) => {
+const Profile = ({ userData }) => {
 
 	const [ user ] = useState(userData);
 	const navigateTo = useNavigate();
 
 	useEffect(() => {
 		
-		if(!user.registerJuridico && !user.registerNatural) {
-			return navigateTo('/register_profile');
-		}
-
-		if(!user.registerEspacio && !user.registerGestor) {
-			return navigateTo('/register_esp_usu');
+		if(!user) {
+			return navigateTo('/login');
 		}
 
 	}, [])
-	
-
 
 	return (
-			<div>
-				<h1>Profile</h1>
-				{user.user}
-
-				
-				<div>
-
-				</div>
-
+			<div className="container__profile">
+				<HeaderProfile userData = {user} />
+				<hr></hr>
+				<BodyProfile userData = {user} />
 			</div>
 	)
 }

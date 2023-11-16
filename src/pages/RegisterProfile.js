@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { FormNatural } from "../components/FormNatural";
-import { FormJuridico } from "../components/FormJuridico";
+import { FormNatural } from "../components/Formularios de registro/FormNatural";
+import { FormJuridico } from "../components/Formularios de registro/FormJuridico";
 import { useNavigate } from "react-router-dom";
 
 const RegisterProfile = ({ userData }) => {
@@ -9,21 +9,14 @@ const RegisterProfile = ({ userData }) => {
     const navigateTo = useNavigate();
 
     useEffect(() => {
-
-        if(!userData) {
+        if(!user) {
             return navigateTo('/login');
         }
-
+    
         if(user.registerJuridico || user.registerNatural) {
             return navigateTo('/register_esp_usu');
         }
-
-        if(user.registerEspacio || user.registerGestor) {
-            return navigateTo('./profile');
-        }
-        
     }, [])
-    
     
     const handlerRenderForm = () => {
 
@@ -36,9 +29,7 @@ const RegisterProfile = ({ userData }) => {
     }
 
     return(
-        <div>
-            <h1>Register profile</h1>
-            <h2>Bienvenido {user.user} </h2>
+        <div className="contenedor__registro">
             {handlerRenderForm()}
         </div>
     )

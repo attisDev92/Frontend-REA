@@ -1,5 +1,5 @@
 const BtnLogOut = ({ handlerLogOut }) => {
-    return <button onClick={handlerLogOut}>LogOut</button>
+    return <button className="btn--logout" onClick={handlerLogOut}>Log out</button>
 }
 
 export default BtnLogOut;

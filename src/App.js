@@ -13,6 +13,7 @@ import RegisterProfile from './pages/RegisterProfile';
 import RegisterEspGes from './pages/RegisterEspGet';
 import AdminLogin from './pages/AdminLogin';
 import UserCreate from './pages/UserCreate'
+import CorrectRegister from './pages/CorrectRegister';
 //otros componentes
 import BtnLogOut from './components/BtnLogOut';
 
@@ -56,7 +57,7 @@ const App = () => {
     }
 
     return (
-        <main>
+        <body>
             <Header />
             {btnLogOut()}
             <Routes>
@@ -69,11 +70,12 @@ const App = () => {
                 <Route path="/userCreated" element={ <UserCreate /> } />
                 <Route path="/register_profile" element={ isLogged ? <RegisterProfile userData={user} /> : <Login/>} />
                 <Route path="/register_esp_usu" element={ isLogged ? <RegisterEspGes userData={user} /> : <Login />} />
+                <Route path='/correct_register' element={ isLogged ? <CorrectRegister userData={user} /> : <Login />} />
                 <Route path="/profile" element={ isLogged ? <Profile userData={user} /> : <Login />} />
                 <Route path="/admin" element={<AdminLogin />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
-        </main>
+        </body>
     );
 }
 

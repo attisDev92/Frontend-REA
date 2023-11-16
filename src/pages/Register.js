@@ -49,9 +49,9 @@ const Register = () => {
 	};
 
     return (
-        <form className="login__formulario contenedor__formulario" onSubmit={handlerOnSubmit}>
+        <form className="contenedor__formulario" onSubmit={handlerOnSubmit}>
 
-            <fieldset>
+            <fieldset className="login__formulario" >
 
                 <legend className="formulario__titulo">Registro de usuario
                 </legend>
