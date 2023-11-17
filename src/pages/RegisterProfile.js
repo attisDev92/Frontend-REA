@@ -21,10 +21,10 @@ const RegisterProfile = ({ userData }) => {
     const handlerRenderForm = () => {
 
         if(user.juridico) {
-            return<FormJuridico userData={user}/>
+            return<FormJuridico />
         }
         if(user.natural) {
-            return <FormNatural userData={user}/>
+            return <FormNatural />
         }
     }
 

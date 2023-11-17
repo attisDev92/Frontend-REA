@@ -3,9 +3,8 @@ import { registerService } from "../../services";
 import { useNavigate } from "react-router-dom";
 import validationsForm from "../../lib/validationsForm";
 
-export const FormJuridico = ({ userData }) => {
+export const FormJuridico = () => {
 
-    const [ user ] = useState(userData);
     const [ telfErrorMessage, setTelfErroMessage ] = useState('alert--none');
 
     const token = localStorage.getItem('signedToken');
@@ -21,7 +20,6 @@ export const FormJuridico = ({ userData }) => {
         }
 
         const formData = new FormData();
-        formData.append('userId', user._id);
         formData.append('nombreComercial', validationsForm.upperCaseWords('nombreComercial')); 
         formData.append('nombreRepresentante',validationsForm.upperCaseWords('nombreRepresentante')); 
         formData.append('apellidoRepresentante', validationsForm.upperCaseWords('apellidoRepresentante')); 

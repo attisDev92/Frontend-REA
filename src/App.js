@@ -35,6 +35,7 @@ const App = () => {
             .then(response => {
                 setUser(response);
                 setIsLogged(true);
+                console.log(user)
             })
             .catch(err => {
                 console.error(err);

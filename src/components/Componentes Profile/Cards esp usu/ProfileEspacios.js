@@ -1,42 +1,21 @@
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import CardAddEspacio from "./CardAddEspacio";
 import CardEspacio from "./CardEspacio";
-import { getInformation } from "../../../services";
 
-const ProfileEspacios = () => {
+const ProfileEspacios = ({ userData }) => {
 
-    const [ userEspaciosData, setUserEspaciosData ] = useState([]);
-    const [ loaded, setLoaded ] = useState(false);
-    
-    const token = localStorage.getItem('signedToken');
+    const [ user ] = useState(userData);
+    const { espaciosData } = user;
 
-    useEffect(() => {
-        const loadUserEspaciosData = async () => {
-            try{
-                const response = await getInformation.getEspacios(token);
-                if(response) {
-                    setUserEspaciosData(response.data);
-                    setLoaded(true);
-                }
-            } catch (err) {
-                console.error(err);
-            }
-        };
-
-        loadUserEspaciosData();
-    }, [token])
+    console.log(espaciosData);
 
     return (
         <div>
              <h4>Espacios registrdos:</h4>
-            { loaded ? (
-                userEspaciosData.map(espacio => (
-                    <CardEspacio espacioData={espacio} /> 
-                ))
-            ) : (
-                null
-            )}
+            { espaciosData.map(espacio => (
+                <CardEspacio espacio = {espacio} />
+            ))}           
             <CardAddEspacio />
         </div>
     )

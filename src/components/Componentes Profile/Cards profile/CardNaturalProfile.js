@@ -1,13 +1,19 @@
+import { useState } from "react";
 import CardNotificationCorrectProfile from "../Cards Notificaciones/CardNotificationCorrectProfile";
 import CardNotificationWaitingValidation from "../Cards Notificaciones/CardNotificationWaitingValidation";
 
-const CardNaturalProfile = ({ userData, userDataProfile }) => {
+const CardNaturalProfile = ({ userData }) => {
+
+    const  [ user ] = useState(userData);
+    const  { naturalData } = user;
     
     const renderNotificationProfileStatus = () => {
-        if(userDataProfile.correctProfile) { 
+        if(naturalData.correctProfile) { 
             return <CardNotificationCorrectProfile />
-        } else if (!userDataProfile.validationProfile) {
+        } else if (!naturalData.validationProfile) {
             return <CardNotificationWaitingValidation />
+        } else {
+            return <></>
         }
     }
 
@@ -17,18 +23,18 @@ const CardNaturalProfile = ({ userData, userDataProfile }) => {
             <div className="container__card__profile row">
                 <div className="col">
                     <p className="profile__type">Persona Natural</p>
-                    <h3 className="profile__name">{userDataProfile.nombre} {userDataProfile.apellido}</h3>
+                    <h3 className="profile__name">{user.nombre} {user.apellido}</h3>
                     <hr></hr>
-                    <p>{userDataProfile.perfilProfesional}</p>
+                    <p>{naturalData.perfilProfesional}</p>
                 </div>
                 <div className="col">
                     <h3>Datos de Contacto:</h3>
                     <ul>
-                        <li>Ciudad: {userDataProfile.ciudad}</li>
-                        <li>Provincia: {userDataProfile.provincia}</li>
-                        <li>e-mail: {userData.user}</li>
-                        <li>Telf: {userDataProfile.telefono}</li>
-                        <li>Dirección: {userDataProfile.direccion}</li>
+                        <li>Ciudad: {user.ciudad}</li>
+                        <li>Provincia: {user.provincia}</li>
+                        <li>e-mail: {user.user}</li>
+                        <li>Telf: {user.telefono}</li>
+                        <li>Dirección: {user.direccion}</li>
                     </ul>
                 </div>
             </div>

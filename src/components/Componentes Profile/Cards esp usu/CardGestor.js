@@ -1,13 +1,17 @@
 import CardNotificationValidEspUsu from "../Cards Notificaciones/CardNotificationValidEspUsu";
 import CardNotificationCorrectEspUsu from "../Cards Notificaciones/CardNotificationCorrectEspUsu";
 
-const CardGestor = ({ userData, gestorData }) => {
+const CardGestor = ({ userData }) => {
+
+    const { gestorData } = userData;
 
     const handlerNotification = () => {
-        if(!gestorData.validProfile) {
+        if(!gestorData.validationProfile) {
             return < CardNotificationValidEspUsu/>
         } else if (gestorData.correctProfile) {
             return < CardNotificationCorrectEspUsu/>
+        } else {
+            return <></>
         }
     }
 

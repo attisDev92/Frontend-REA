@@ -2,9 +2,9 @@ import { useState } from "react";
 
 const CorrectRegister = ({ userData }) => {
 
-    const [ loaded,  setLoaded ] = useState;
-    const [ data ]
+    const [ loaded,  setLoaded ] = useState(false);
 
+    
 
     return (
         <div>

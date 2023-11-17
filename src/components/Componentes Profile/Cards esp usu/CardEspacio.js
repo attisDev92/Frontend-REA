@@ -1,52 +1,53 @@
 import CardNotificationValidEspUsu from "../Cards Notificaciones/CardNotificationValidEspUsu";
 import CardNotificationCorrectEspUsu from "../Cards Notificaciones/CardNotificationCorrectEspUsu";
 
-const CardEspacio = ({ espacioData }) => {
+const CardEspacio = ({ espacio }) => {
 
-    console.log(espacioData);
     const handlerNotification = () => {
-        if(espacioData.correctProfile) {
+        if(espacio.correctProfile) {
             return < CardNotificationCorrectEspUsu />
-        } else if (!espacioData.validProfile) {
+        } else if (!espacio.validationProfile) {
             return < CardNotificationValidEspUsu />
+        } else {
+            return <></>
         }
     }
 
     return (
         <div className="container__card__espacio container">
             <div className="row">
-                <img className="col 2" src={espacioData.imgLogo} alt="Imagen Logo del Espacio"></img>
+                <img className="col 2" src={espacio.imgLogo} alt="Imagen Logo del Espacio"></img>
                 <div className="col">
                     <p>Espacio de exhibición</p>
-                    <h2>{espacioData.nombreEspacio}</h2>
+                    <h2>{espacio.nombreEspacio}</h2>
                     <p>Responsable del espacio:</p>
-                    <h3>{espacioData.nombreResponsable}</h3>
-                    <p>{espacioData.cargoResponsable}</p>
+                    <h3>{espacio.nombreResponsable}</h3>
+                    <p>{espacio.cargoResponsable}</p>
                 </div>
             </div>
             <hr></hr>
             <div className="row">
-                <p>{espacioData.descripcion}</p>
+                <p>{espacio.descripcion}</p>
             </div>
             <hr></hr>
             <div className="row">
                 <ul className="col">
-                    <li>Tipo de espacio: {espacioData.tipoDeEspacio}</li>
-                    <li>{espacioData.publicoPrivado}</li>
-                    <li>Ciudad: {espacioData.ciudad}</li>
-                    <li>Provincia: {espacioData.provincia}</li>
-                    <li>Otros servicios: {!espacioData.otrosServicios ? 'No hay otros servicios' : espacioData.otrosServicios}</li>
+                    <li>Tipo de espacio: {espacio.tipoDeEspacio}</li>
+                    <li>{espacio.publicoPrivado}</li>
+                    <li>Ciudad: {espacio.ciudad}</li>
+                    <li>Provincia: {espacio.provincia}</li>
+                    <li>Otros servicios: {!espacio.otrosServicios ? 'No hay otros servicios' : espacio.otrosServicios}</li>
                 </ul>
                 <ul className="col">
-                    <li>Celular: {espacioData.celularResponsable}</li>
-                    <li>e-mail: {espacioData.mailResponsable}</li>
-                    <li>Dirección: {espacioData.direccionEspacio}</li>
+                    <li>Celular: {espacio.celularResponsable}</li>
+                    <li>e-mail: {espacio.mailResponsable}</li>
+                    <li>Dirección: {espacio.direccionEspacio}</li>
                 </ul>
                 <ul className="col">
-                    <li>Aforo: {espacioData.aforo}</li>
-                    <li>Equipo de proyección: {espacioData.equipoProyeccion.split(',').join(', ')}</li>
-                    <li>Equipo de reproducción: {espacioData.equipoReproductor.split(',').join(', ')}</li>
-                    <li>Equipo de audio: {espacioData.equipoAudio}</li>
+                    <li>Aforo: {espacio.aforo}</li>
+                    <li>Equipo de proyección: {espacio.equipoProyeccion}</li>
+                    <li>Equipo de reproducción: {espacio.equipoReproductor}</li>
+                    <li>Equipo de audio: {espacio.equipoAudio}</li>
                 </ul>
             </div>
             {handlerNotification()}          

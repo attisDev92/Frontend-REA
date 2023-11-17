@@ -3,9 +3,8 @@ import { registerService } from "../../services";
 import validationsForm from "../../lib/validationsForm";
 import { useNavigate } from "react-router-dom";
 
-export const FormNatural = ({ userData }) => {
+export const FormNatural = () => {
 
-    const [ user ] = useState(userData);
     const [ telfErrorMessage, setTelfErroMessage ] = useState('alert--none');
     const token = localStorage.getItem('signedToken');
     const navigateTo = useNavigate();
@@ -20,7 +19,6 @@ export const FormNatural = ({ userData }) => {
         }
 
         const formData = new FormData();
-        formData.append('userId', user._id);
         formData.append('nombre', validationsForm.upperCaseWords('nombre'));
         formData.append('apellido', validationsForm.upperCaseWords('apellido'));
         formData.append('direccion', document.getElementById('direccion').value);

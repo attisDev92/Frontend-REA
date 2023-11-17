@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { userService, getInformation } from "../../services";
+import { userService } from "../../services";
 import validationsForm from "../../lib/validationsForm";
 
 const FormLogin = () => {
@@ -39,11 +39,11 @@ const FormLogin = () => {
 				const { signed,  userData } = response;
 				localStorage.setItem('signedToken', signed);
 
-				if(!userData.registerJuridico && !userData.registerNatural) {
+				if(!userData.juridicoData && !userData.naturalData) {
 					return navigateTo('/register_profile');
 				}
 
-				if(!userData.registerEspacio && !userData.registerGestor) {
+				if(!userData.espacios && !userData.gestor) {
 					return navigateTo('/register_esp_usu');
 				}
 

@@ -3,9 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { registerService } from "../../services";
 import validationsForm from "../../lib/validationsForm";
 
-const FormEspacio = ({ userData }) => {
+const FormEspacio = () => {
 
-    const [ user ] = useState(userData);
     const [ telfErrorMessage, setTelfErroMessage ] = useState('alert--none');
     const [ mailErrorMessage, setMailErrorMessage ] = useState('alert--none');
     const token = localStorage.getItem('signedToken');
@@ -29,7 +28,6 @@ const FormEspacio = ({ userData }) => {
         const checkboxsEquipoReproductor = Array.from(document.querySelectorAll('input[name="equipoReproductor"]:checked')).map(checkbox => checkbox.value);
 
         const formData = new FormData();
-        formData.append('userId', user._id);
         formData.append('nombreEspacio', validationsForm.upperCaseWords('nombreEspacio'));
         formData.append('nombreResponsable', validationsForm.upperCaseWords('nombreResponsable'));
         formData.append('cargoResponsable', validationsForm.upperCaseWords('cargoResponsable'));
@@ -43,9 +41,9 @@ const FormEspacio = ({ userData }) => {
         formData.append('aforo', document.getElementById('aforo').value);
         formData.append('equipoProyeccion', checkboxsEquipoProyeccion.join(','));
         formData.append('equipoReproductor', checkboxsEquipoReproductor.join(','));
-        formData.append('equipoAudio ', document.getElementById('equipoAudio').value);
-        formData.append('otrosServicios ', document.getElementById('otrosServicios').value);
-        formData.append('publicoPrivado ', document.getElementById('publicoPrivado').value);
+        formData.append('equipoAudio', document.getElementById('equipoAudio').value);
+        formData.append('otrosServicios', document.getElementById('otrosServicios').value);
+        formData.append('publicoPrivado', document.getElementById('publicoPrivado').value);
         formData.append('imgLogo', document.getElementById('imgLogo').files[0]);
         formData.append('fotoEspacio1', document.getElementById('fotoEspacio1').files[0]);
         formData.append('fotoEspacio2', document.getElementById('fotoEspacio2').files[0]);

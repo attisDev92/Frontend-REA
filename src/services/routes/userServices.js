@@ -24,7 +24,7 @@ export const register = async newUser => {
 }
 
 export const authMail = async updateUser => {
-    const request = axiosInstance.patch(`/api/authmail`, updateUser);
+    const request = axiosInstance.put(`/api/authmail`, updateUser);
     const response = await request;
     console.log(response);
     debugger

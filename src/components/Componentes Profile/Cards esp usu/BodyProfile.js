@@ -8,15 +8,15 @@ const BodyProfile = ({ userData }) => {
 
     return (
         <div className="body__profile">
-            { userData.registerEspacio ? (
+            { user.espacio ? (
                 <>
-                    <ProfileEspacios /> 
+                    <ProfileEspacios userData={user} />
                     <ProfileGestor userData={user} />
                 </>
             ):( 
                 <>
-                    <ProfileGestor userData={user} /> 
-                    <ProfileEspacios /> 
+                    <ProfileGestor userData={user} />
+                    <ProfileEspacios userData={user} />
                 </>
             )}
         </div>

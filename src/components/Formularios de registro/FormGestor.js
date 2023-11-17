@@ -1,10 +1,8 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { registerService } from "../../services";
 
-const FormGestor = ({ userData }) => {
+const FormGestor = () => {
 
-    const [ user ] = useState(userData);
     const token =localStorage.getItem('signedToken');
     const navigateTo = useNavigate();
 
@@ -12,7 +10,6 @@ const FormGestor = ({ userData }) => {
         e.preventDefault();
 
         const formData = new FormData();
-        formData.append('userId', user._id);
         formData.append('proyecto', document.getElementById('proyecto').value);
         formData.append('imgAutorizacion', document.getElementById('imgAutorizacion').files[0]);
         formData.append('imgFotoLogo', document.getElementById('imgFotoLogo').files[0]);

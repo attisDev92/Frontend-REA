@@ -5,7 +5,7 @@ export const juridico = async (formData, token) => {
         Authorization: `${token}`,
     };
 
-    const request = axiosInstance.post(`/api/registerJuridico`, formData, {
+    const request = axiosInstance.put(`/api/registerJuridico`, formData, {
         headers,
     });
     const response = await request;
@@ -17,7 +17,7 @@ export const natural = async (formData, token) => {
         Authorization: `${token}`,
     };
 
-    const request = axiosInstance.post(`/api/registerNatural`, formData, {
+    const request = axiosInstance.put(`/api/registerNatural`, formData, {
         headers,
     });
     const response = await request;
@@ -29,7 +29,7 @@ export const espacio = async (formData, token) => {
         Authorization: `${token}`,
     };
 
-    const request = axiosInstance.post(`/api/registerEspacio`, formData, {
+    const request = axiosInstance.put(`/api/registerEspacio`, formData, {
         headers,
     });
     const response = await request;
@@ -41,7 +41,7 @@ export const gestor = async (formData, token) => {
         Authorization: `${token}`,
     };
 
-    const request = axiosInstance.post(`/api/registerGestor`, formData, {
+    const request = axiosInstance.put(`/api/registerGestor`, formData, {
         headers,
     });
     const response = await request;

@@ -21,9 +21,9 @@ const RegisterEspGes = ({ userData }) => {
 
     const handlerRenderForm = () => {
         if (renderForm === 'espacio') {
-            return <FormEspacio userData={user} />
+            return <FormEspacio />
         } else if (renderForm === 'gestor') {
-            return <FormGestor userData={user} />
+            return <FormGestor />
         } else {
             return <h3 className="titulo__registro">Seleccione una opción </h3>
         }
