@@ -7,21 +7,28 @@ const FormEspacio = () => {
 
     const [ telfErrorMessage, setTelfErroMessage ] = useState('alert--none');
     const [ mailErrorMessage, setMailErrorMessage ] = useState('alert--none');
+    const [ loader, setLoader ] = useState('loaded');
+    const [ descripcionEspacio, setDescripcionEspacio ] = useState('Breve descripción del espacio y las actividades que ejecuta');
+
     const token = localStorage.getItem('signedToken');
     const navigateTo = useNavigate();
 
     const handlerOnSubmit = (e) => {
         e.preventDefault();
 
+        setLoader('loader-section');
+
         setTelfErroMessage('alert--none');
         setMailErrorMessage('alert--none');
 
         if (!validationsForm.validationTelf('celularResponsable')) {
-            setTelfErroMessage('alert');
+            setLoader('loaded') 
+            return setTelfErroMessage('alert');
         }
 
         if (!validationsForm.validMail('mailResponsable')) {
-            setMailErrorMessage('alert')
+            setLoader('loaded') 
+            return setMailErrorMessage('alert')
         }
 
         const checkboxsEquipoProyeccion = Array.from(document.querySelectorAll('input[name="equipoProyeccion"]:checked')).map(checkbox => checkbox.value);
@@ -53,17 +60,27 @@ const FormEspacio = () => {
         registerService.espacio(formData, token)
             .then(response => {
                 if (response.status === 201) {
-                    navigateTo('/profile');
+                    setLoader('loaded');
+                    return navigateTo('/profile');
                 }
             })
             .catch(err => {
+                setLoader('loaded') 
                 console.error(err);
             })
 
     };
 
+    const handlerOnClicDescripcionEspacio = () => {
+        setDescripcionEspacio('');
+    }
+
     return (
         <form className="formulario__registro" onSubmit={handlerOnSubmit} encType="multipart/form-data">
+            
+            <div className={loader}>
+				<span className="loader"></span>
+			</div>
 
             <fieldset>
                 <legend>Información general del espacio</legend>
@@ -179,11 +196,11 @@ const FormEspacio = () => {
                     <input className="col-2" type="text" name="equipoAudio" id="equipoAudio" placeholder="Equipode audio Dolby5.1" required/>
 
                     <label className="col-2" htmlFor="otrosServicios">Otros Servicio</label>
-                    <input className="col-2" type="text" name="otrosServicios" id="otrosServicios" placeholder="ejm: cafetería, tienda artesanal, etc" required/>
+                    <input className="col-3" type="text" name="otrosServicios" id="otrosServicios" placeholder="ejm: cafetería, tienda artesanal, etc" required/>
                 </div>
 
                 <label htmlFor="descripcion">Descripción del Espacio: </label>
-                <textarea type="text" name="descripcion" id="descripcion" required>Breve descripción del espacio y las actividades que ejecuta</textarea>
+                <textarea type="text" name="descripcion" id="descripcion" value={descripcionEspacio} onChange={e => setDescripcionEspacio(e.target.value)} onClick={handlerOnClicDescripcionEspacio} required />
 
                 <hr></hr>
 

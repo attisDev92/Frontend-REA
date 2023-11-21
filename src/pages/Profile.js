@@ -8,14 +8,18 @@ const Profile = ({ userData }) => {
 
 	const [ user ] = useState(userData);
 	const navigateTo = useNavigate();
+	
+	if(!user) {
+		return navigateTo('login');
+	}
 
-	useEffect(() => {
-		
-		if(!user) {
-			return navigateTo('/login');
-		}
+	if(user.jurdicoData === null && user.naturalData === null) {
+		return navigateTo('/register_profile');
+	}
 
-	}, [])
+	if(!user.espacio && !user.gestor) {
+		return navigateTo('/register_esp_usu')
+	}
 
 	return (
 			<div className="container__profile">

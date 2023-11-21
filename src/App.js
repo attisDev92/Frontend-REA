@@ -35,7 +35,6 @@ const App = () => {
             .then(response => {
                 setUser(response);
                 setIsLogged(true);
-                console.log(user)
             })
             .catch(err => {
                 console.error(err);
@@ -62,7 +61,7 @@ const App = () => {
             <Header />
             {btnLogOut()}
             <Routes>
-                <Route path="/"  element={<Login />} />
+                <Route path="/"  element={ isLogged ? <Profile userData={user}/> : <Login />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/resetPassword" element={<ResetPassword />} />
                 <Route path="/register" element={<Register />} />

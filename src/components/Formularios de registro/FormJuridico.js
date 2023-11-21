@@ -6,17 +6,19 @@ import validationsForm from "../../lib/validationsForm";
 export const FormJuridico = () => {
 
     const [ telfErrorMessage, setTelfErroMessage ] = useState('alert--none');
+    const [ loader, setLoader ] = useState('loaded');
 
     const token = localStorage.getItem('signedToken');
     const navigateTo = useNavigate();
 
     const handlerOnSubmit = (e) => {
         e.preventDefault();
-
+        setLoader('loader-section');
         setTelfErroMessage('alert--none')
 
         if (!validationsForm.validationTelf('telefono')) {
-            setTelfErroMessage('alert');
+            setLoader('loaded')
+            return setTelfErroMessage('alert');
         }
 
         const formData = new FormData();
@@ -24,20 +26,21 @@ export const FormJuridico = () => {
         formData.append('nombreRepresentante',validationsForm.upperCaseWords('nombreRepresentante')); 
         formData.append('apellidoRepresentante', validationsForm.upperCaseWords('apellidoRepresentante')); 
         formData.append('direccion', document.getElementById('direccion').value);
-        formData.append('provincia', document.getElementById('provincia').value); 
-        formData.append('ciudad', validationsForm.upperCaseWords('ciudad')); 
-        formData.append('telefono', document.getElementById('telefono').value); 
+        formData.append('provincia', document.getElementById('provincia').value);
+        formData.append('ciudad', validationsForm.upperCaseWords('ciudad'));
+        formData.append('telefono', document.getElementById('telefono').value);
         formData.append('imgDir', document.getElementById('imgDir').files[0]);
         formData.append('imgRuc', document.getElementById('imgRuc').files[0]);
 
         registerService.juridico(formData, token)
             .then(response => {
-                console.log(response);
                 if(response.status === 201) {
-                    navigateTo('/register_esp_usu');
+                    setLoader('loaded');
+                    return navigateTo('/register_esp_usu');
                 }
             })
             .catch(err => {
+                setLoader('loaded')
                 console.error(err);
                 if(err) {
                     alert("Existe un problema con el servidor, salga y vuelva a ingrear. Si el problema persiste comuniquese con nosotros");
@@ -47,6 +50,11 @@ export const FormJuridico = () => {
 
     return (
         <form className="formulario__registro" onSubmit={handlerOnSubmit} encType="multipart/form-data">
+
+            <div className={loader}>
+				<span className="loader"></span>
+			</div>
+
             <legend className="titulo__registro">Registro Persona Juríca</legend>
             <fieldset>
 

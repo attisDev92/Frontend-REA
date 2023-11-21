@@ -522,3 +522,68 @@ nav {
 	margin: 1rem auto;
 }
 
+/* loader  */
+.loader-section{
+	width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+	left: 0;
+    background-color: #212529f2;
+    z-index: 999;
+    transition: all 1s 1s ease-out;
+}
+
+.loaded{
+	display: none;
+}
+	
+.loader {
+	width: 5rem;
+	height: 5rem;
+	border: 10px solid var(--color-rojo);
+	border-bottom-color: transparent;
+	border-radius: 50%;
+	display: inline-block;
+	margin: 35% 45%;
+	box-sizing: border-box;
+	animation: rotation 1s linear infinite;
+}
+  
+@keyframes rotation {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+} 
+
+/* seccion de notificaciones */
+.container__notification {
+	margin: 3rem;
+	padding: 2rem;
+	background-color: var(--color-gris-claro);
+}
+
+.notification__card p {
+
+	color: var(--color-rojo);
+}
+
+.correct__form--none {
+	display: none;
+}
+
+.correct__form {
+	
+}
+
+/* acuerdo */
+.acuerdo__display--none {
+	display: none;
+}
+
+.acuerdo__display {
+
+}

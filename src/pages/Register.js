@@ -14,11 +14,14 @@ const Register = () => {
 	const [ errorMessageCedula, setMessageCedula ] = useState('alert--none');
     const [ errorMessage400, setErrorMessage400 ] = useState('alert--none');
     const [ errorMessage403, setErrorMessage403 ] = useState('alert--none');
+    const [ loader, setLoader ] = useState('loaded');
 
     const navigateTo = useNavigate();
 
 	const handlerOnSubmit = (e) => {
 		e.preventDefault();
+
+        setLoader('loader-section');
 
         setErrorMessageUser('alert--none');
         setMessageCedula('alert--none');
@@ -26,9 +29,21 @@ const Register = () => {
         setErrorMessage400('alert--none');
         setErrorMessage403('alert--none');
 
-		if(!validationsForm.validMail('mail-usuario')) setErrorMessageUser('alert');
-        if (!validationsForm.validCedula('identidad')) setMessageCedula('alert');
-		if(!validationsForm.validPassword('pass')) setErrorMessagePassword('alert');
+		if(!validationsForm.validMail('mail-usuario')) {
+            setLoader('loaded')    
+            return setErrorMessageUser('alert')
+        };
+
+        if (!validationsForm.validCedula('identidad')) {
+            setLoader('loaded')    
+            return setMessageCedula('alert')
+        };
+
+		if(!validationsForm.validPassword('pass')) {
+            setLoader('loaded')    
+            return setErrorMessagePassword('alert')
+        };
+
 
 		const newUser = {
 			user: user,
@@ -38,11 +53,11 @@ const Register = () => {
 
         userService.register(newUser)
             .then(response => {
-                console.log(response);
-                // return setTimeout( navigateTo('/validation_mail'), 5000);
+                setLoader('loaded');
                 navigateTo('/userCreated');
             })
             .catch(err => {
+                setLoader('loaded')
                 if( err.status === 403) setErrorMessage403('alert');
                 if( err.status === 400) setErrorMessage400('alert');
             })
@@ -50,6 +65,10 @@ const Register = () => {
 
     return (
         <form className="contenedor__formulario" onSubmit={handlerOnSubmit}>
+
+            <div className={loader}>
+				<span className="loader"></span>
+			</div>
 
             <fieldset className="login__formulario" >
 

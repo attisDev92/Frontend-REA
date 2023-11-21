@@ -13,10 +13,10 @@ const RegisterEspGes = ({ userData }) => {
         if(!user) {
             return navigateTo('/login');
         }
-        if(user.registerEspacio || user.registerGestor) {
+        if(user.espacio || user.gestor) {
             return navigateTo('/profile');
         }
-
+    
     }, [])
 
     const handlerRenderForm = () => {

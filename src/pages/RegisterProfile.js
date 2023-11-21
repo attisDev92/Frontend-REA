@@ -9,13 +9,15 @@ const RegisterProfile = ({ userData }) => {
     const navigateTo = useNavigate();
 
     useEffect(() => {
+
         if(!user) {
             return navigateTo('/login');
         }
     
-        if(user.registerJuridico || user.registerNatural) {
+        if(user.juridicoData !== null || user.naturalData !== null) {
             return navigateTo('/register_esp_usu');
         }
+
     }, [])
     
     const handlerRenderForm = () => {

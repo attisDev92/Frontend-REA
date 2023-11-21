@@ -6,16 +6,22 @@ import { useNavigate } from "react-router-dom";
 export const FormNatural = () => {
 
     const [ telfErrorMessage, setTelfErroMessage ] = useState('alert--none');
+    const [ loader, setLoader ] = useState('loaded');
+    const [ perfilProfesional, setPerfilProfesional ] = useState ('Breve descripción de su trayectoria como gestor cultural y la clase de proyectos que realiza')
+
     const token = localStorage.getItem('signedToken');
     const navigateTo = useNavigate();
-
+    
     const handlerOnSubmit = (e) => {
         e.preventDefault();
+
+        setLoader('loader-section');
 
         setTelfErroMessage('alert--none')
 
         if (!validationsForm.validationTelf('telefono')) {
-            setTelfErroMessage('alert');
+            setLoader('loader-section');
+            return setTelfErroMessage('alert');
         }
 
         const formData = new FormData();
@@ -25,16 +31,19 @@ export const FormNatural = () => {
         formData.append('provincia', document.getElementById('provincia').value);
         formData.append('ciudad', validationsForm.upperCaseWords('ciudad'));
         formData.append('telefono', document.getElementById('telefono').value);
-        formData.append('perfilProfesional', document.getElementById('perfilProfesional').value);
+        formData.append('perfilProfesional', perfilProfesional);
+
         formData.append('imgDir', document.getElementById('imgDir').files[0]);
 
         registerService.natural(formData, token)
             .then(response => {
                 if(response.status === 201) {
+                    setLoader('loaded');
                     return navigateTo('/register_esp_usu');
                 }
             })
             .catch(err => {
+                setLoader('loader-section');
                 console.error(err);
                 if(err) {
                     alert("Existe un problema con el servidor, salga y vuelva a ingrear. Si el problema persiste comuniquese con nosotros");
@@ -42,8 +51,16 @@ export const FormNatural = () => {
             })
     }
 
+    const handlePerfilProfesionalClick = () => {
+        setPerfilProfesional('');
+    }
+
     return (
         <form className="formulario__registro" onSubmit={handlerOnSubmit} encType="multipart/form-data">
+            
+            <div className={loader}>
+				<span className="loader"></span>
+			</div>
 
             <legend className="titulo__registro"> Registro Personas Naturales</legend>
             
@@ -115,7 +132,7 @@ export const FormNatural = () => {
                 <hr></hr>
 
                 <label htmlFor="perfilProfesional">Perfil profesional:</label>
-                <textarea name="perfilProfesional" id="perfilProfesional" cols="30" rows="10" required>Breve descripción de su trayectoria como gestor cultural y la clase de proyectos que realiza</textarea>
+                <textarea name="perfilProfesional" id="perfilProfesional" cols="30" rows="10" onClick={handlePerfilProfesionalClick} value={perfilProfesional} onChange={e => setPerfilProfesional(e.target.value)} required />
 
                 <hr></hr>
 
