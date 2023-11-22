@@ -6,10 +6,10 @@ const CardGestor = ({ userData }) => {
     const { gestorData } = userData;
 
     const handlerNotification = () => {
-        if(!gestorData.validationProfile) {
-            return < CardNotificationValidEspUsu/>
-        } else if (gestorData.correctProfile) {
+        if(gestorData.correctProfile) {
             return < CardNotificationCorrectEspUsu/>
+        } else if (!gestorData.validationProfile) {
+            return < CardNotificationValidEspUsu/>
         } else {
             return <></>
         }

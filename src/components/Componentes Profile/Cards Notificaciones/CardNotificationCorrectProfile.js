@@ -6,7 +6,7 @@ const CardNotificationCorrectProfile = () => {
 
     return (
         <div className="card__notification">
-            <p className="notification__text">Debe carregir su perfil para poder ser validado</p>
+            <p className="notification__text">Debe corregir su perfil para poder ser validado</p>
             <button onClick={() => navigateTo('/correct_register')}>Corregir información</button>
         </div>
     )

@@ -57,7 +57,7 @@ const FormGestor = () => {
                 </div>
 
                 <div className="row">
-                    <label className="col-4" htmlFor="imgAutorizacion">Documento de nombrameinto o autorización:</label>
+                    <label className="col-4" htmlFor="imgAutorizacion">*Nombramiento o autorización:</label>
                     <input className="col-4" type="file" name="imgAutorizacion" id="imgAutorizacion" accept=".pdf, .jpg"/>
                 </div>
                 <p>*Solo en caso de personas jurídicas</p>

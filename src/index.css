@@ -324,112 +324,6 @@ nav {
 	display: none;
 }
 
-.btn--select {
-	height: 10em;
-}
-
-.btn--noselect {
-	display: none;
-}
-
-.btn--atras {
-	height: 7em;
-	margin: 1.5em;
-	padding: 0.5em ;
-	background-color: var(--color-rojo);
-	font-family: var(--font-secundaria);
-	color: var(--color-gris-claro);
-	text-align: center;
-	-webkit-box-shadow: var(--sombra-box);
-	        box-shadow: var(--sombra-box);
-	-webkit-transition: all 0.3s ease;
-	-o-transition: all 0.3s ease;
-	transition: all 0.3s ease;
-}
-
-.btn--atras:hover {
-	color: var(--color-negro);
-	background-color: var(--color-gris-claro);
-}
-
-.btn--atras--none {
-	display: none;
-}
-
-.main--select {
-	background-color: var(--color-gris-claro);
-	min-height: 100vh;
-	height: fit-content;
-}
-
-.form__espacios--none {
-	display: none;
-}
-
-.form__espacios {
-	margin-inline: 5em;
-}
-
-/* btn juridico o narutal */
-.contenedor__persona {
-	margin: 2em;
-	width: fit-content;
-	height: fit-content;
-	border: 2px solid var(--color-rojo);
-	border-radius: 2px;
-	font-family: var(--font-secundaria);
-	text-align: center;
-	border-radius: 2px;
-	color: var(--color-gris-claro);
-}
-
-.persona__tipo {
-	width: 10em;
-	height: 3em;
-	background-color: var(--color-negro);
-	padding: 1em 0em;
-	transition: all 0.3s ease;
-}
-
-.persona__tipo:hover {
-	background-color: var(--color-rojo);
-	transform: scale(1.1);
-}
-
-.persona__tipo--active {
-	background-color: var(--color-rojo);
-}
-
-.accordion-body div {
-	padding: 0.5em 1em;
-	border-bottom: 0.05em solid rgba(0, 0, 0, 0.299);
-}
-
-.accordion-body label {
-	margin: 0.5em;
-	text-align: start;
-}
-
-.accordion-body input {
-	box-shadow: inset 0px 0px 5px 0px #343a40cf;
-	height: 2.1em;
-}
-
-.accordion-body textarea {
-	box-shadow: inset 0px 0px 5px 0px #343a40cf;
-	height: 4.5em;
-}
-
-.select-form {
-	box-shadow: 0px 0px 5px 0px #343a40cf;
-	height: 1.7em;
-	border-radius: 10px;
-}
-
-.accordion-body .input-file {
-	box-shadow: none;
-}
-
 /* profile */
 
 .container__profile {
@@ -576,8 +470,133 @@ nav {
 }
 
 .correct__form {
-	
+	position: absolute;
+	top: 5rem;
+	left: 0;
+	width: 100%;
+	min-height: 100%;
+	height: auto;
+	background-color: var(--color-gris-claro);
+	z-index: 999;
+	padding: 2rem 4rem;
 }
+
+.correct__form label,
+.correct__form p {
+    height: 2em;
+    padding-block: 0.5em;
+}
+
+.correct__form input:not(.btn),
+.correct__form textarea,
+.correct__form select {
+	height: 2em;
+	padding: 0 1em;
+	color: var(--color-negro);
+	font-family: var(--font-secundaria);
+	font-size: 1em;
+	background-color: white;
+	-webkit-box-shadow: inset -1px -1px 4px 0px black;
+	        box-shadow: inset -1px -1px 4px 0px black;
+}
+
+
+.correct__form input[type="file"] {
+	background-color: var(--color-gris-claro);
+	color: #3A4750;
+	box-shadow: none;
+}
+
+.correct__form li input,
+.correct__form li label {
+	display: inline;
+}
+
+.correct__form input[type="checkbox"] {
+	background-color: aliceblue;
+    margin: 1.5rem;
+    padding: 2px 10px;
+    border-radius: 10px;
+}
+
+.correct__form input[type="checkbox"]:checked {
+	background-color: var(--color-rojo);
+}
+
+.correct__form textarea {
+	height: 5rem;
+	width: 50%;
+	padding: 1em;
+	margin: 0 auto;
+}
+
+.correct__form .row {
+	margin-block: 0.7em;
+}
+
+.no-valid {
+	color:var(--color-rojo);
+}
+
+.valid {
+	color: #067441;
+	font-size: 1.2rem;
+	padding: 2rem;
+}
+
+.btn--cerrar {
+	position: absolute;
+    right: 5rem;
+	width: 6rem;
+}
+
+.correct__enviar {
+	width: fit-content;
+	margin-inline-start: 70%; 
+}
+
+.validation--comment {
+	background-color: var(--color-negro);
+	color: var(--color-gris-claro);
+	font-size: 1.2rem;
+	min-height: 4rem;
+	height: fit-content;
+	padding: 2rem;
+	margin-block: 2.5rem;
+	box-shadow: var(--sombra-box);
+}
+
+.validation--comment strong {
+	color: var(--color-rojo);
+	text-shadow:  var(--color-gris-claro) 2px ;
+}
+
+.correct__form--visible {
+	margin-block: 1rem;
+	border: solid var(--color-rojo) 2px;
+	padding: 2rem;
+}
+
+.notification__updated {
+	background-color: var(--color-negro);
+	height: 3rem;
+}
+
+.notification__updated p {
+	color: var(--color-gris-claro);
+	margin: 1rem 7rem;
+	font-size: 1.2rem;
+	font-weight: 700;
+}
+
+.notification__updated--none {
+	display: none;
+}
+
+.confirm__correct p {
+	color: var(--color-rojo);
+}
+
 
 /* acuerdo */
 .acuerdo__display--none {
@@ -587,3 +606,4 @@ nav {
 .acuerdo__display {
 
 }
+

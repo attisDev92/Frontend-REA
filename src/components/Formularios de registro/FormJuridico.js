@@ -132,7 +132,7 @@ export const FormJuridico = () => {
                 </div>
                 
                 <div className="row">
-                    <label className="col-4" htmlFor="imgDir">Documento que respalde la dirección</label>
+                    <label className="col-4" htmlFor="imgDir">Documento que respalde la dirección: </label>
                     <input className="col-4" type="file" name="imgDir" id="imgDir" accept=".pdf, .jpg" required />
                 </div>
 
